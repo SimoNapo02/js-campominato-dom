@@ -6,18 +6,41 @@
 // La partita termina quando il giocatore inserisce un numero “vietato” o raggiunge il numero massimo possibile di numeri consentiti.
 // Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
 
-// FUNZIONi
+
    // 1. funzione per numeri casuali da 1 a 100
-function rndRangeNumber(min, max) {
+function genericNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
   }
   const numBomb = [];
-// ciclo per generare 16 numeri
+//1.1 ciclo per generare 16 numeri
   while ( numBomb.length < 16) {
-      let number = randomNumbers(1, 100);
-    //   non fa ripetere i numeri
+      let number =  genericNumber(1, 100);
+    //1.2   non fa ripetere i numeri
       if (!numBomb.includes(number)) {
           numBomb.push(number);
       }
   }
   console.log(numBomb);
+// 2. Chiedo all'user di inserire una numero alla volta compreso tra 1 e 100
+const userNum = [];
+let user;
+
+while (!numBomb.includes(user) && userNum.length < 5) {
+    do {
+        user = Number(prompt("Inserisci un numero che va da 1 a 100"))
+    } while (isNaN(user))
+//    controllo se il numero è stato duplicato
+    if (!userNum.includes(user)) {
+        userNum.push(user);
+    }
+    // condizioni di vittoria
+    else {
+        alert("Numero già presente, prova con un altro!")
+    }
+    if ( numBomb.includes(user) ){
+        alert(`Hai perso! Totale: ${userNum.length} `);
+    };
+}
+
+console.log(userNum);
+
